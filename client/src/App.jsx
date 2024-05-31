@@ -5,6 +5,7 @@ import PokemonInfo from './component/PokemonInfo';
 import './App.css'
 import Home from './component/Home';
 import Game from './component/Game';
+import Leaderboard from './component/Leaderboard';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Route path='/pokemon/:id' element={<PokemonById />} />
       <Route path='/pokemon/:id/:info' element={<PokemonInfo />} />
       <Route path='/game' element={<Game />} />
+      <Route path='/leaderboard' element={<Leaderboard />} />  
       </Routes>
       </div>
   );
