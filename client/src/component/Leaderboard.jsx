@@ -1,52 +1,54 @@
+// Leaderboard.jsx
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { List, Segment, Header } from 'semantic-ui-react';
 
-const Leaderboard = () => {
+function Leaderboard() {
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const fetchGames = async () => {
+    const fetchLeaderboard = async () => {
       try {
         const response = await axios.get('/game/leaderboard');
-        setGames(response.data);
-        setLoading(false);
-      } catch (err) {
-        setError(err.message);
+        console.log(response.data)
+        if (Array.isArray(response.data))
+        { // Check if response data is an array
+     
+          setGames(response.data);
+          setLoading(false);
+        } else {
+          setError('Data is not in the expected format');
+          setLoading(false);
+        }
+      } catch (error) {
+        setError('Error fetching leaderboard');
         setLoading(false);
       }
     };
 
-    fetchGames();
+    fetchLeaderboard();
   }, []);
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <p>Error: {error}</p>;
-  }
-
   return (
-    <Segment>
-      <Header as="h2" textAlign="center">Leaderboard</Header>
-      <List>
-        {games.map((game, index) => (
-          <List.Item key={index}>
-            <List.Content>
-              <List.Header>Game {index + 1}</List.Header>
-              <List.Description>
-                {game.playerPokemon} vs {game.opponentPokemon} - {game.result} in {game.turns} turns
-              </List.Description>
-            </List.Content>
-          </List.Item>
-        ))}
-      </List>
-    </Segment>
+    <div>
+      <h2>Leaderboard</h2>
+      {loading ? (
+        <p>Loading...</p>
+      ) : error ? (
+        <p>{error}</p>
+      ) : (
+        <ol>
+          {games.map((game) => (
+            <li key={game._id}>
+              Winner: {game.winner}, Loser: {game.loser}, Turns: {game.turns}
+            </li>
+          ))}
+        </ol>
+      )}
+    </div>
   );
-};
+}
 
 export default Leaderboard;
