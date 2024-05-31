@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-// import { RotatingLines } from "react-loader-spinner";
+import { Pagination, Grid, Card, Image, Header } from 'semantic-ui-react';
 
 function Pokemon() {
   const [pokemons, setPokemons] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(9); // Set the number of items per page
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,6 +23,35 @@ function Pokemon() {
     fetchData();
   }, []);
 
+  // Calculate the paginated Pokémon
+  const indexOfLastPokemon = currentPage * itemsPerPage;
+  const indexOfFirstPokemon = indexOfLastPokemon - itemsPerPage;
+  const currentPokemons = pokemons.slice(indexOfFirstPokemon, indexOfLastPokemon);
+
+  const handlePageChange = (e, { activePage }) => {
+    setCurrentPage(activePage);
+  };
+
+  const renderPokemonCard = (pokemon) => (
+    <Grid.Column key={pokemon.id}>
+      <Card>
+      
+        <Card.Content>
+          <Card.Header>{pokemon.name.english}</Card.Header>
+          <Card.Meta>Type: {pokemon.type.join(', ')}</Card.Meta>
+          <Card.Description>
+            <Header as="h4">Base Stats</Header>
+            <ul>
+              {Object.entries(pokemon.base).map(([statName, statValue]) => (
+                <li key={statName}>{statName}: {statValue}</li>
+              ))}
+            </ul>
+          </Card.Description>
+        </Card.Content>
+      </Card>
+    </Grid.Column>
+  );
+
   return (
     <div>
       {loading ? (
@@ -28,37 +59,27 @@ function Pokemon() {
       ) : error ? (
         <p>Error: {error}</p>
       ) : (
-        <ol>
-          {pokemons.map((pokemon) => (
-            <li key={pokemon.id}>
-              <p><strong>Name:</strong></p>
-              <ul>
-              {Object.entries(pokemon.name).map(([statName, statValue]) => (
-                <li key={statName}>
-                  {statName}: {statValue}
-                </li>
-              ))}
-            </ul>
-              <p><strong>Type:</strong> {pokemon.type.join(', ')}</p>
-              <p><strong>Base:</strong></p>
-              <ul>
-                {Object.entries(pokemon.base).map(([statName, statValue]) => (
-                  <li key={statName}>
-                    {statName}: {statValue}
-                  </li>
-                ))}
-              </ul>
-            </li>
-          ))}
-        </ol>
+        <>
+          <Grid stackable columns={3}>
+            <Grid.Row>
+              {currentPokemons.map((pokemon) => renderPokemonCard(pokemon))}
+            </Grid.Row>
+          </Grid>
+          <Pagination
+            activePage={currentPage}
+                onPageChange={handlePageChange}
+            totalPages={Math.ceil(pokemons.length / itemsPerPage)}
+            boundaryRange={1}
+            siblingRange={1}
+            ellipsisItem={null}
+            firstItem={null}
+            lastItem={null}
+            style={{ marginTop: '2em', textAlign: 'center' }}
+          />
+        </>
       )}
     </div>
   );
 }
 
 export default Pokemon;
-
-
-// https://pokeapi.co/api/v2/pokemon
-
-// https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/pokedex.json

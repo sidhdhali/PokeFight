@@ -1,6 +1,7 @@
 const errorHandler = (err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send("Something went wrong!");
+  const statusCode = err.statusCode || 500;
+  const message = err.message || 'Server Error';
+  res.status(statusCode).json({ message: message });
 };
 
 export default errorHandler;
