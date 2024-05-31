@@ -1,8 +1,11 @@
 import express from "express";
+import errorHandler from "./middlewares/errorHandler.js";
 import './db/pokedex.js';
+import './db/server.js'
 import pokemonRoutes from "./routes/pokemonRoutes.js";
-import gameRoutes from "./routes/gameRoutes.js"
+import gameRoutes from "./routes/gameRoutes.js";
 import cors from "cors"; // Import the CORS middleware
+
 
 
 const app = express();
@@ -17,7 +20,7 @@ app.use("/pokemon", pokemonRoutes);
 app.use("/game" , gameRoutes)
 
 // Use the error handling middleware
-// app.use(errorHandler);
+app.use(errorHandler);
 
 // Start the server
 app.listen(port, () => {
