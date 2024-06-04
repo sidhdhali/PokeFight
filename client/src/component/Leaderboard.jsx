@@ -1,30 +1,17 @@
-// Leaderboard.jsx
-
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { getLeaderboard } from '../utils/api';
+import { Segment, Header, List } from 'semantic-ui-react';
 
-function Leaderboard() {
+const Leaderboard = () => {
   const [games, setGames] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
-        const response = await axios.get('/game/leaderboard');
-        console.log(response.data)
-        if (Array.isArray(response.data))
-        { // Check if response data is an array
-     
-          setGames(response.data);
-          setLoading(false);
-        } else {
-          setError('Data is not in the expected format');
-          setLoading(false);
-        }
+        const leaderboard = await getLeaderboard();
+        setGames(leaderboard);
       } catch (error) {
-        setError('Error fetching leaderboard');
-        setLoading(false);
+        console.error('Error fetching leaderboard:', error);
       }
     };
 
@@ -32,23 +19,24 @@ function Leaderboard() {
   }, []);
 
   return (
-    <div>
-      <h2>Leaderboard</h2>
-      {loading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        <p>{error}</p>
-      ) : (
-        <ol>
-          {games.map((game) => (
-            <li key={game._id}>
-              Winner: {game.winner}, Loser: {game.loser}, Turns: {game.turns}
-            </li>
-          ))}
-        </ol>
-      )}
-    </div>
+    <Segment>
+      <Header as="h2" textAlign="center">Leaderboard</Header>
+      <List divided relaxed>
+        {games.map((game) => (
+          <List.Item key={game._id}>
+            <List.Content>
+              <List.Header>
+                {game.playerPokemon} vs {game.opponentPokemon}
+              </List.Header>
+              <List.Description>
+                Result: {game.result} - Turns: {game.turns} - Date: {new Date(game.date).toLocaleString()}
+              </List.Description>
+            </List.Content>
+          </List.Item>
+        ))}
+      </List>
+    </Segment>
   );
-}
+};
 
 export default Leaderboard;

@@ -1,0 +1,13 @@
+.pokemon-container {
+  padding: 20px;
+}
+
+.pokemon-card {
+  margin: 20px !important;
+  
+}
+
+.pagination {
+  margin-top: 20px;
+  text-align: center;
+}
