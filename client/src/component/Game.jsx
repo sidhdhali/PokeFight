@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Dropdown, Header, Grid, Segment, Card, Image } from 'semantic-ui-react';
 import { saveGameResult } from '../utils/api'; // Make sure this path is correct
-import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const Game = () => {
@@ -40,16 +39,19 @@ const Game = () => {
     const basicPokemon = pokemons.find(p => p.id === value);
     const detailedPokemon = await fetchPokemonDetails(basicPokemon.name.english.toLowerCase());
     setSelectedPokemon({ ...basicPokemon, details: detailedPokemon });
-  };
 
-  const handleFight = async () => {
+    // Randomly select the opponent's Pokémon after user selects their Pokémon
     const opponentIndex = Math.floor(Math.random() * pokemons.length);
     const opponentBasic = pokemons[opponentIndex];
     const opponentDetailed = await fetchPokemonDetails(opponentBasic.name.english.toLowerCase());
     setOpponentPokemon({ ...opponentBasic, details: opponentDetailed });
+  };
+
+  const handleFight = async () => {
+    if (!selectedPokemon || !opponentPokemon) return;
 
     const userPower = selectedPokemon.base.Attack + selectedPokemon.base.Speed - selectedPokemon.base.Defense;
-    const opponentPower = opponentBasic.base.Attack + opponentBasic.base.Speed - opponentBasic.base.Defense;
+    const opponentPower = opponentPokemon.base.Attack + opponentPokemon.base.Speed - opponentPokemon.base.Defense;
     let fightResult = '';
 
     if (userPower > opponentPower) {
@@ -63,7 +65,7 @@ const Game = () => {
     setResult(fightResult);
     setTurns(turns + 1);
 
-    await saveGameResult(selectedPokemon.name.english, opponentBasic.name.english, fightResult, turns + 1);
+    await saveGameResult(selectedPokemon.name.english, opponentPokemon.name.english, fightResult, turns + 1);
   };
 
   const pokemonOptions = pokemons.map(p => ({
@@ -105,6 +107,7 @@ const Game = () => {
             {selectedPokemon && renderPokemonCard(selectedPokemon)}
           </Grid.Column>
           <Grid.Column>
+            <Header as="h2">{result || 'Select your Pokemon and Fight!'}</Header>
             <Dropdown
               placeholder="Select your Pokemon"
               fluid
@@ -112,7 +115,7 @@ const Game = () => {
               options={pokemonOptions}
               onChange={handleSelect}
             />
-            <Button primary onClick={handleFight} disabled={!selectedPokemon} style={{ marginTop: '1em' }}>
+            <Button primary onClick={handleFight} disabled={!selectedPokemon || !opponentPokemon} style={{ marginTop: '1em' }}>
               Fight!
             </Button>
           </Grid.Column>
@@ -121,11 +124,6 @@ const Game = () => {
           </Grid.Column>
         </Grid.Row>
       </Grid>
-      {result && (
-        <Segment textAlign="center">
-          <Header as="h2">{result}</Header>
-        </Segment>
-      )}
     </Segment>
   );
 };
