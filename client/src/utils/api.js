@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:5173/game"; // Update with your actual URL
+const API_BASE_URL = "http://localhost:3000/game"; // Update with your actual URL
 
 export const saveGameResult = async (
   playerPokemon,
@@ -6,7 +6,8 @@ export const saveGameResult = async (
   result,
   turns
 ) => {
-  const response = await fetch(`${API_BASE_URL}/game/save`, {
+  const response = await fetch(`${API_BASE_URL}/save`, {
+    // Removed `/game` from here
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -23,7 +24,10 @@ export const saveGameResult = async (
 };
 
 export const getLeaderboard = async () => {
-  const response = await fetch(`${API_BASE_URL}/game/leaderboard`);
+  const response = await fetch(`${API_BASE_URL}/leaderboard`, {
+    // Corrected URL here
+    method: "GET",
+  });
 
   if (!response.ok) {
     throw new Error("Failed to fetch leaderboard");
