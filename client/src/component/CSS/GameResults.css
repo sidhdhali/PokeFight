@@ -1,0 +1,25 @@
+.game-results-container {
+  text-align: center;
+}
+
+.table-container {
+  margin-top: 20px; /* Adjust as needed */
+  display: flex;
+  justify-content: center;
+}
+
+.game-results-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.game-results-table th,
+.game-results-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.game-results-table th {
+  background-color: #f2f2f2;
+}
