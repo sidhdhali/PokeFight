@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { Pagination } from "semantic-ui-react"; // Import Pagination component
 import "./CSS/GameResults.css"; // Import CSS file for styling
 
 function GameResults() {
   const [gameResults, setGameResults] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10); // Set the number of items per page
 
   useEffect(() => {
     fetchGameResults();
@@ -20,6 +23,18 @@ function GameResults() {
     }
   }
 
+  // Calculate the paginated game results
+  const indexOfLastResult = currentPage * itemsPerPage;
+  const indexOfFirstResult = indexOfLastResult - itemsPerPage;
+  const currentResults = gameResults.slice(
+    indexOfFirstResult,
+    indexOfLastResult
+  );
+
+  const handlePageChange = (e, { activePage }) => {
+    setCurrentPage(activePage);
+  };
+
   return (
     <div className="game-results-container">
       <h1>Game Results</h1>
@@ -34,7 +49,7 @@ function GameResults() {
             </tr>
           </thead>
           <tbody>
-            {gameResults.map((result, index) => (
+            {currentResults.map((result, index) => (
               <tr key={index}>
                 <td>
                   {result.result === "win!"
@@ -53,6 +68,17 @@ function GameResults() {
           </tbody>
         </table>
       </div>
+      <Pagination
+        activePage={currentPage}
+        onPageChange={handlePageChange}
+        totalPages={Math.ceil(gameResults.length / itemsPerPage)}
+        boundaryRange={1}
+        siblingRange={1}
+        ellipsisItem={null}
+        firstItem={null}
+        lastItem={null}
+        className="pagination"
+      />
     </div>
   );
 }

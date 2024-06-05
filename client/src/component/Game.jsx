@@ -150,6 +150,7 @@ const Game = () => {
               placeholder="Select your Pokemon"
               fluid
               selection
+              search
               options={pokemonOptions}
               onChange={handleSelect}
             />
