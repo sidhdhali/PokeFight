@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Container, Table } from "semantic-ui-react";
 
-function Leaderboard() {
+const Leaderboard = () => {
   const [games, setGames] = useState([]);
 
   useEffect(() => {
@@ -47,6 +47,6 @@ function Leaderboard() {
       </Table>
     </Container>
   );
-}
+};
 
 export default Leaderboard;

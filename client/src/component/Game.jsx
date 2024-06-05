@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import { Button, Dropdown, Header, Grid, Segment, Card, Image } from 'semantic-ui-react';
+import { saveGameResult } from '../utils/api'; // Make sure this path is correct
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const Game = () => {
   const [pokemons, setPokemons] = useState([]);
@@ -9,6 +11,7 @@ const Game = () => {
   const [result, setResult] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [turns, setTurns] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,16 +49,21 @@ const Game = () => {
     setOpponentPokemon({ ...opponentBasic, details: opponentDetailed });
 
     const userPower = selectedPokemon.base.Attack + selectedPokemon.base.Speed - selectedPokemon.base.Defense;
-    console.log(userPower)
     const opponentPower = opponentBasic.base.Attack + opponentBasic.base.Speed - opponentBasic.base.Defense;
-    console.log(opponentPower)
+    let fightResult = '';
+
     if (userPower > opponentPower) {
-      setResult('You win!');
+      fightResult = 'You win!';
     } else if (userPower < opponentPower) {
-      setResult('You lose!');
+      fightResult = 'You lose!';
     } else {
-      setResult('It\'s a draw!');
+      fightResult = 'It\'s a draw!';
     }
+
+    setResult(fightResult);
+    setTurns(turns + 1);
+
+    await saveGameResult(selectedPokemon.name.english, opponentBasic.name.english, fightResult, turns + 1);
   };
 
   const pokemonOptions = pokemons.map(p => ({
@@ -91,7 +99,6 @@ const Game = () => {
 
   return (
     <Segment>
-      <Header as="h2" textAlign="center">PokeFight</Header>
       <Grid columns={3} stackable textAlign="center">
         <Grid.Row verticalAlign="middle">
           <Grid.Column>
