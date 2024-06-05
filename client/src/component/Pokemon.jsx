@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Pagination, Grid, Card, Image, Header } from 'semantic-ui-react';
+import { Pagination, Grid, Card, Header } from 'semantic-ui-react';
+import './CSS/Pokemon.css'; // Import custom CSS for Pokemon component
 
 function Pokemon() {
   const [pokemons, setPokemons] = useState([]);
@@ -34,8 +35,7 @@ function Pokemon() {
 
   const renderPokemonCard = (pokemon) => (
     <Grid.Column key={pokemon.id}>
-      <Card>
-      
+      <Card className="pokemon-card"> {/* Apply a custom class for styling */}
         <Card.Content>
           <Card.Header>{pokemon.name.english}</Card.Header>
           <Card.Meta>Type: {pokemon.type.join(', ')}</Card.Meta>
@@ -53,7 +53,7 @@ function Pokemon() {
   );
 
   return (
-    <div>
+    <div className="pokemon-container"> {/* Apply a custom class for styling */}
       {loading ? (
         <p>Loading...</p>
       ) : error ? (
@@ -67,14 +67,14 @@ function Pokemon() {
           </Grid>
           <Pagination
             activePage={currentPage}
-                onPageChange={handlePageChange}
+            onPageChange={handlePageChange}
             totalPages={Math.ceil(pokemons.length / itemsPerPage)}
             boundaryRange={1}
             siblingRange={1}
             ellipsisItem={null}
             firstItem={null}
             lastItem={null}
-            style={{ marginTop: '2em', textAlign: 'center' }}
+            className="pagination" // Apply a custom class for pagination styling
           />
         </>
       )}

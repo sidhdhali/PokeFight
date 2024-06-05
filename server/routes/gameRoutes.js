@@ -6,11 +6,11 @@ import * as gameController from '../controllers/gameController.js';
 const gamesRouter = Router();
 
 gamesRouter
-  .route('/save')
+  .route('/game/save')
   .post(gameController.postPokemon);
 
 gamesRouter
-  .route('/leaderboard')
+  .route('/game/leaderboard')
 .get(gameController.getLeaderBoard);
 
 export default gamesRouter

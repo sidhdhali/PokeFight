@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
-function PokemonById() {
+function PokemonInfo() {
   const { id, info } = useParams();
   const [pokemon, setPokemon] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -64,4 +64,4 @@ function PokemonById() {
   );
 }
 
-export default PokemonById;
+export default PokemonInfo;

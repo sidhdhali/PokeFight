@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Message, Loader, List, Card } from 'semantic-ui-react';
 import axios from 'axios';
+import './CSS/PokemonById.css';
 
 function PokemonById() {
   const { id } = useParams();
@@ -28,35 +30,51 @@ function PokemonById() {
   }, [id]);
 
   return (
-    <div>
+    <div className="pokemon-details-container">
       {loading ? (
-        <p>Loading...</p>
+        <Loader active inline="centered" className="loader" />
       ) : error ? (
-        <p>Error: {error}</p>
+        <Message negative className="error-message">
+          <Message.Header>Error</Message.Header>
+          <p>{error}</p>
+        </Message>
       ) : pokemon ? (
-        <div>
-   
-              <p><strong>ID:</strong> {pokemon.id}</p>
-              <p><strong>Name:</strong></p>
-              <ul>
-              {Object.entries(pokemon.name).map(([statName, statValue]) => (
-                <li key={statName}>
-                  {statName}: {statValue}
-                </li>
-              ))}
-            </ul>
-          <p><strong>Types:</strong> {pokemon.type.join(', ')}</p>
-          <p><strong>Base Stats:</strong></p>
-          <ul>
-            {Object.entries(pokemon.base).map(([statName, statValue]) => (
-              <li key={statName}>
-                {statName}: {statValue}
-              </li>
-            ))}
-          </ul>
-        </div>
+        <Card>
+          <Card.Header className="pokemon-id"><strong>ID:</strong> {pokemon.id}</Card.Header>
+          <List divided relaxed className="pokemon-details-list">
+            <List.Item className="pokemon-details-list-item">
+              <List.Content>
+                <List.Header className="pokemon-details-list-header">Name:</List.Header>
+                <List.Description>
+                  <ul>
+                    {Object.entries(pokemon.name).map(([lang, name]) => (
+                      <li key={lang}><strong>{lang}:</strong> {name}</li>
+                    ))}
+                  </ul>
+                </List.Description>
+              </List.Content>
+            </List.Item>
+          </List>
+          <p className="pokemon-types"><strong>Types:</strong> {pokemon.type.join(', ')}</p>
+          <List divided relaxed className="pokemon-base-stats">
+            <List.Item className="base-stats-list-item">
+              <List.Content>
+                <List.Header className="base-stats-list-header">Base Stats:</List.Header>
+                <List.Description>
+                  <ul className="base-stats-list">
+                    {Object.entries(pokemon.base).map(([statName, statValue]) => (
+                      <li key={statName}><strong>{statName}:</strong> {statValue}</li>
+                    ))}
+                  </ul>
+                </List.Description>
+              </List.Content>
+            </List.Item>
+          </List>
+        </Card>
       ) : (
-        <p>No Pokemon data found</p>
+        <Message negative className="error-message">
+          No Pokemon data found
+        </Message>
       )}
     </div>
   );
