@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Message, Loader, List, Card } from 'semantic-ui-react';
 import axios from 'axios';
-// import './CSS/PokemonById.css';
+import './CSS/PokemonById.css';
 
 function PokemonById() {
   const { id } = useParams();

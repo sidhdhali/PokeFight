@@ -22,14 +22,14 @@ function App() {
           <Menu.Item
             as={NavLink}
               to="/"
-              name="Home"
+              name="Pokemons"
               exact="true"
               activeClassName="active"
             />
             <Menu.Item
               as={NavLink}
               to="/pokemon"
-              name="Pokemon"
+              name="Single Pokemon"
               activeClassName="active"
             />
             <Menu.Item
@@ -49,7 +49,7 @@ function App() {
         <Container>
           <Routes>
           <Route path="/" element={<Home />} />
-           <Route path="/pokemon" element={<Pokemon />} />
+             <Route path="/pokemon" element={<Pokemon />} /> 
             <Route path="/pokemon/:id" element={<PokemonById />} />
             <Route path="/pokemon/:id/:info" element={<PokemonInfo />} />
             <Route path="/game" element={<Game />} />

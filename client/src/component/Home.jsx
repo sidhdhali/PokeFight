@@ -8,7 +8,7 @@ function Home() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(25); // Set the number of items per page
+  const [itemsPerPage] = useState(23); // Set the number of items per page
 
   useEffect(() => {
     const fetchData = async () => {

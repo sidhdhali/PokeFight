@@ -1,5 +1,6 @@
 .pokemon-container {
-  padding: 20px;
+  opacity: 0.8;
+  padding: 10px;
 }
 
 .pokemon-card {
