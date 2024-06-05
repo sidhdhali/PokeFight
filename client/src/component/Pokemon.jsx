@@ -1,19 +1,30 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Pagination, Grid, Card, Header } from 'semantic-ui-react';
-import './CSS/Pokemon.css'; // Import custom CSS for Pokemon component
+import { useState, useEffect } from "react";
+import axios from "axios";
+import {
+  Pagination,
+  Grid,
+  Card,
+  Header,
+  Dropdown,
+  Input,
+} from "semantic-ui-react";
+import "./CSS/Pokemon.css"; // Import custom CSS for Pokemon component
 
 function Pokemon() {
   const [pokemons, setPokemons] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(9); // Set the number of items per page
+  const [sortOrder, setSortOrder] = useState("asc");
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/pokedex.json');
+        const response = await axios.get(
+          "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/pokedex.json"
+        );
         setPokemons(response.data);
         setLoading(false);
       } catch (error) {
@@ -24,26 +35,55 @@ function Pokemon() {
     fetchData();
   }, []);
 
+  // Sort the Pokémon based on the selected sort order
+  const sortedPokemons = [...pokemons].sort((a, b) => {
+    if (sortOrder === "asc") {
+      return a.name.english.localeCompare(b.name.english);
+    } else {
+      return b.name.english.localeCompare(a.name.english);
+    }
+  });
+
+  // Filter Pokémon based on the search term
+  const filteredPokemons = sortedPokemons.filter((pokemon) =>
+    pokemon.name.english.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   // Calculate the paginated Pokémon
   const indexOfLastPokemon = currentPage * itemsPerPage;
   const indexOfFirstPokemon = indexOfLastPokemon - itemsPerPage;
-  const currentPokemons = pokemons.slice(indexOfFirstPokemon, indexOfLastPokemon);
+  const currentPokemons = filteredPokemons.slice(
+    indexOfFirstPokemon,
+    indexOfLastPokemon
+  );
 
   const handlePageChange = (e, { activePage }) => {
     setCurrentPage(activePage);
   };
 
+  const handleSortChange = (e, { value }) => {
+    setSortOrder(value);
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
   const renderPokemonCard = (pokemon) => (
     <Grid.Column key={pokemon.id}>
-      <Card className="pokemon-card"> {/* Apply a custom class for styling */}
+      <Card className="pokemon-card">
+        {" "}
+        {/* Apply a custom class for styling */}
         <Card.Content>
           <Card.Header>{pokemon.name.english}</Card.Header>
-          <Card.Meta>Type: {pokemon.type.join(', ')}</Card.Meta>
+          <Card.Meta>Type: {pokemon.type.join(", ")}</Card.Meta>
           <Card.Description>
             <Header as="h4">Base Stats</Header>
             <ul>
               {Object.entries(pokemon.base).map(([statName, statValue]) => (
-                <li key={statName}>{statName}: {statValue}</li>
+                <li key={statName}>
+                  {statName}: {statValue}
+                </li>
               ))}
             </ul>
           </Card.Description>
@@ -52,8 +92,30 @@ function Pokemon() {
     </Grid.Column>
   );
 
+  const sortOptions = [
+    { key: "asc", text: "Sort by Name (A-Z)", value: "asc" },
+    { key: "desc", text: "Sort by Name (Z-A)", value: "desc" },
+  ];
+
   return (
-    <div className="pokemon-container"> {/* Apply a custom class for styling */}
+    <div className="pokemon-container">
+      {" "}
+      {/* Apply a custom class for styling */}
+      <div className="controls">
+        <Dropdown
+          placeholder="Sort by"
+          selection
+          options={sortOptions}
+          onChange={handleSortChange}
+          value={sortOrder}
+        />
+        <Input
+          icon="search"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={handleSearchChange}
+        />
+      </div>
       {loading ? (
         <p>Loading...</p>
       ) : error ? (
@@ -68,7 +130,7 @@ function Pokemon() {
           <Pagination
             activePage={currentPage}
             onPageChange={handlePageChange}
-            totalPages={Math.ceil(pokemons.length / itemsPerPage)}
+            totalPages={Math.ceil(filteredPokemons.length / itemsPerPage)}
             boundaryRange={1}
             siblingRange={1}
             ellipsisItem={null}
