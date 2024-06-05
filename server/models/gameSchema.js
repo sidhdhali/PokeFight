@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
 const gameSchema = new mongoose.Schema({
   playerPokemon: {
@@ -19,9 +19,8 @@ const gameSchema = new mongoose.Schema({
   },
   date: {
     type: Date,
-    default:Date.now
+    default: Date.now
   }
-})
-
+});
 
 export default mongoose.model('Game', gameSchema);

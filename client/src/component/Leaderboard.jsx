@@ -1,53 +1,51 @@
-// Leaderboard.jsx
-
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Container, Table } from "semantic-ui-react";
 
 function Leaderboard() {
   const [games, setGames] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
 
   useEffect(() => {
-    const fetchLeaderboard = async () => {
+    const fetchGames = async () => {
       try {
-        const response = await axios.get('/game/leaderboard');
-        console.log(response.data)
-        if (Array.isArray(response.data))
-        { // Check if response data is an array
-     
-          setGames(response.data);
-          setLoading(false);
-        } else {
-          setError('Data is not in the expected format');
-          setLoading(false);
-        }
+        const response = await axios.get(
+          "http://localhost:5000/game/leaderboard"
+        );
+        setGames(response.data);
       } catch (error) {
-        setError('Error fetching leaderboard');
-        setLoading(false);
+        console.error("Error fetching games data:", error);
       }
     };
 
-    fetchLeaderboard();
+    fetchGames();
   }, []);
 
   return (
-    <div>
-      <h2>Leaderboard</h2>
-      {loading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        <p>{error}</p>
-      ) : (
-        <ol>
+    <Container>
+      <h1>Leaderboard</h1>
+      <Table celled>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell>Player Pokémon</Table.HeaderCell>
+            <Table.HeaderCell>Opponent Pokémon</Table.HeaderCell>
+            <Table.HeaderCell>Result</Table.HeaderCell>
+            <Table.HeaderCell>Turns</Table.HeaderCell>
+            <Table.HeaderCell>Date</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
           {games.map((game) => (
-            <li key={game._id}>
-              Winner: {game.winner}, Loser: {game.loser}, Turns: {game.turns}
-            </li>
+            <Table.Row key={game._id}>
+              <Table.Cell>{game.playerPokemon}</Table.Cell>
+              <Table.Cell>{game.opponentPokemon}</Table.Cell>
+              <Table.Cell>{game.result}</Table.Cell>
+              <Table.Cell>{game.turns}</Table.Cell>
+              <Table.Cell>{new Date(game.date).toLocaleString()}</Table.Cell>
+            </Table.Row>
           ))}
-        </ol>
-      )}
-    </div>
+        </Table.Body>
+      </Table>
+    </Container>
   );
 }
 
