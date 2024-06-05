@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import gameRoutes from "../routes/gameRoutes.js";
 import dotenv from "dotenv";
+import cors from "cors";
 
 dotenv.config();
 
@@ -9,6 +10,9 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
+
+// Enable CORS for all routes
+app.use(cors());
 
 app.use("/api/games", gameRoutes);
 
