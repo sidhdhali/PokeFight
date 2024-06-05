@@ -7,7 +7,7 @@ import gameRoutes from "./routes/gameRoutes.js";
 import cors from "cors"; // Import the CORS middleware
 
 const app = express();
-const port = 3001;
+const port = 3000;
 
 // Enable CORS
 app.use(cors());
