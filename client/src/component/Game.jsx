@@ -87,12 +87,19 @@ const Game = () => {
     setResult(fightResult);
     setTurns(turns + 1);
 
-    await saveGameResult(
-      selectedPokemon.name.english,
-      opponentPokemon.name.english,
-      fightResult,
-      turns + 1
-    );
+    try {
+      await saveGameResult(
+        selectedPokemon.name.english,
+        opponentPokemon.name.english,
+        fightResult,
+        turns + 1
+      );
+      // Reload game results after saving
+      // You can implement a function to fetch game results again and update state
+      // e.g., fetchGameResults()
+    } catch (error) {
+      setError("Failed to save game result: " + error.message); // Display error to user
+    }
   };
 
   const pokemonOptions = pokemons.map((p) => ({

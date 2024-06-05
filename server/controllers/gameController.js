@@ -18,8 +18,8 @@ export const postPokemon = async (req, res) => {
     await newGame.save();
     res.status(201).json(newGame);
   } catch (error) {
-    console.error(error.message);
-    res.status(500).json({ error: "Server error: " + error.message });
+    console.error("Failed to save game result:", error); // Log error for debugging
+    res.status(500).json({ error: "Failed to save game result" }); // Return generic error message
   }
 };
 
