@@ -1,41 +1,51 @@
-import React, { useState, useEffect } from 'react';
-import { getLeaderboard } from '../utils/api';
-import { Segment, Header, List } from 'semantic-ui-react';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Container, Table } from "semantic-ui-react";
 
 const Leaderboard = () => {
   const [games, setGames] = useState([]);
 
   useEffect(() => {
-    const fetchLeaderboard = async () => {
+    const fetchGames = async () => {
       try {
-        const leaderboard = await getLeaderboard();
-        setGames(leaderboard);
+        const response = await axios.get(
+          "http://localhost:5000/game/leaderboard"
+        );
+        setGames(response.data);
       } catch (error) {
-        console.error('Error fetching leaderboard:', error);
+        console.error("Error fetching games data:", error);
       }
     };
 
-    fetchLeaderboard();
+    fetchGames();
   }, []);
 
   return (
-    <Segment>
-      <Header as="h2" textAlign="center">Leaderboard</Header>
-      <List divided relaxed>
-        {games.map((game) => (
-          <List.Item key={game._id}>
-            <List.Content>
-              <List.Header>
-                {game.playerPokemon} vs {game.opponentPokemon}
-              </List.Header>
-              <List.Description>
-                Result: {game.result} - Turns: {game.turns} - Date: {new Date(game.date).toLocaleString()}
-              </List.Description>
-            </List.Content>
-          </List.Item>
-        ))}
-      </List>
-    </Segment>
+    <Container>
+      <h1>Leaderboard</h1>
+      <Table celled>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell>Player Pokémon</Table.HeaderCell>
+            <Table.HeaderCell>Opponent Pokémon</Table.HeaderCell>
+            <Table.HeaderCell>Result</Table.HeaderCell>
+            <Table.HeaderCell>Turns</Table.HeaderCell>
+            <Table.HeaderCell>Date</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          {games.map((game) => (
+            <Table.Row key={game._id}>
+              <Table.Cell>{game.playerPokemon}</Table.Cell>
+              <Table.Cell>{game.opponentPokemon}</Table.Cell>
+              <Table.Cell>{game.result}</Table.Cell>
+              <Table.Cell>{game.turns}</Table.Cell>
+              <Table.Cell>{new Date(game.date).toLocaleString()}</Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table>
+    </Container>
   );
 };
 
