@@ -1,5 +1,7 @@
 .game-results-container {
   text-align: center;
+  /* background-image: linear-gradient(to bottom right, rgb(250, 250, 113), rgb(252, 167, 111)); */
+  margin-bottom: 20px;
 }
 
 .table-container {
@@ -11,6 +13,7 @@
 .game-results-table {
   width: 100%;
   border-collapse: collapse;
+
 }
 
 .game-results-table th,
@@ -22,6 +25,7 @@
 
 .game-results-table th {
   background-color: #f2f2f2;
+  /* background-image: linear-gradient(to bottom right, rgb(250, 113, 113), rgb(150, 128, 248)); */
 }
 
 .pagination {
