@@ -42,6 +42,7 @@
 
 .pokemon-card .card-description li {
   margin-bottom: 5px;
+  list-style: none;
 }
 
 /* Specific types background colors */

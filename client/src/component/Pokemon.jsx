@@ -104,10 +104,12 @@ function Pokemon() {
           <Card.Header className="card-header">
             {pokemon.name.english}
           </Card.Header>
-          <Card.Meta className="card-meta">HP: {pokemon.base.HP}</Card.Meta>
-          <Card.Meta className="card-meta">
-            Type: {pokemon.type.join(", ")}
-          </Card.Meta>
+          <br />
+          <Card.Header as="h4">
+           Type
+          </Card.Header>
+          <Card.Meta>{pokemon.type.join(", ")}</Card.Meta>
+          <br />
           <Card.Description className="card-description">
             <Header as="h4">Base Stats</Header>
             <ul>

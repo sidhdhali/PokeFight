@@ -36,6 +36,7 @@ function GameResults() {
   };
 
   return (
+    <>
     <div className="game-results-container">
       <h1>Game Results</h1>
       <div className="table-container">
@@ -68,18 +69,20 @@ function GameResults() {
           </tbody>
         </table>
       </div>
-      <Pagination
-        activePage={currentPage}
-        onPageChange={handlePageChange}
-        totalPages={Math.ceil(gameResults.length / itemsPerPage)}
-        boundaryRange={1}
-        siblingRange={1}
-        ellipsisItem={null}
-        firstItem={null}
-        lastItem={null}
-        className="pagination"
-      />
+     
     </div>
+    <Pagination
+    activePage={currentPage}
+    onPageChange={handlePageChange}
+    totalPages={Math.ceil(gameResults.length / itemsPerPage)}
+    boundaryRange={1}
+    siblingRange={1}
+    ellipsisItem={null}
+    firstItem={null}
+    lastItem={null}
+    className="pagination"
+  />
+    </>
   );
 }
 
