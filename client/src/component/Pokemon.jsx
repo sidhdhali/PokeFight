@@ -7,8 +7,28 @@ import {
   Header,
   Dropdown,
   Input,
+  Image,
 } from "semantic-ui-react";
 import "./CSS/Pokemon.css"; // Import custom CSS for Pokemon component
+
+const typeColor = {
+  bug: "#26de81",
+  dragon: "#ffeaa7",
+  electric: "#fed330",
+  fairy: "#FF0069",
+  fighting: "#30336b",
+  fire: "#f0932b",
+  flying: "#81ecec",
+  grass: "#00b894",
+  ground: "#EFB549",
+  ghost: "#a55eea",
+  ice: "#74b9ff",
+  normal: "#95afc0",
+  poison: "#6c5ce7",
+  psychic: "#a29bfe",
+  rock: "#2d3436",
+  water: "#0190FF",
+};
 
 function Pokemon() {
   const [pokemons, setPokemons] = useState([]);
@@ -69,15 +89,26 @@ function Pokemon() {
     setSearchTerm(e.target.value);
   };
 
-  const renderPokemonCard = (pokemon) => (
-    <Grid.Column key={pokemon.id}>
-      <Card className="pokemon-card">
-        {" "}
-        {/* Apply a custom class for styling */}
+  const renderPokemonCard = (pokemon) => {
+    // Format the Pokémon ID to match the image URL pattern
+    const formattedId = String(pokemon.id).padStart(3, "0");
+    const imageUrl = `https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/${formattedId}.png`;
+
+    // Determine the card color based on the Pokémon type
+    const typeClass = pokemon.type[0].toLowerCase(); // Use the first type as the card color class
+
+    return (
+      <Card className={`pokemon-card ${typeClass}`}>
+        <Image src={imageUrl} alt={pokemon.name.english} wrapped ui={false} />
         <Card.Content>
-          <Card.Header>{pokemon.name.english}</Card.Header>
-          <Card.Meta>Type: {pokemon.type.join(", ")}</Card.Meta>
-          <Card.Description>
+          <Card.Header className="card-header">
+            {pokemon.name.english}
+          </Card.Header>
+          <Card.Meta className="card-meta">HP: {pokemon.base.HP}</Card.Meta>
+          <Card.Meta className="card-meta">
+            Type: {pokemon.type.join(", ")}
+          </Card.Meta>
+          <Card.Description className="card-description">
             <Header as="h4">Base Stats</Header>
             <ul>
               {Object.entries(pokemon.base).map(([statName, statValue]) => (
@@ -89,8 +120,8 @@ function Pokemon() {
           </Card.Description>
         </Card.Content>
       </Card>
-    </Grid.Column>
-  );
+    );
+  };
 
   const sortOptions = [
     { key: "asc", text: "Sort by Name (A-Z)", value: "asc" },
@@ -99,8 +130,6 @@ function Pokemon() {
 
   return (
     <div className="pokemon-container">
-      {" "}
-      {/* Apply a custom class for styling */}
       <div className="controls">
         <Dropdown
           placeholder="Sort by"
@@ -122,9 +151,20 @@ function Pokemon() {
         <p>Error: {error}</p>
       ) : (
         <>
-          <Grid stackable columns={3}>
-            <Grid.Row>
-              {currentPokemons.map((pokemon) => renderPokemonCard(pokemon))}
+          <Grid stackable columns={3} doubling>
+            <Grid.Row centered>
+              {currentPokemons.map((pokemon) => (
+                <Grid.Column
+                  key={pokemon.id}
+                  mobile={16}
+                  tablet={8}
+                  computer={5}
+                  largeScreen={5}
+                  style={{ marginBottom: "20px" }}
+                >
+                  {renderPokemonCard(pokemon)}
+                </Grid.Column>
+              ))}
             </Grid.Row>
           </Grid>
           <Pagination
