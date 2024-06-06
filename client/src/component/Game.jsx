@@ -96,10 +96,8 @@ const Game = () => {
         turns + 1
       );
       // Reload game results after saving
-      // You can implement a function to fetch game results again and update state
-      // e.g., fetchGameResults()
     } catch (error) {
-      setError("Failed to save game result: " + error.message); // Display error to user
+      setError("Failed to save game result: " + error.message);
     }
   };
 
