@@ -1,5 +1,3 @@
-/* Game.css */
-
 .game-segment {
   background-color: transparent !important;
   border: none !important;
@@ -7,4 +5,7 @@
 }
 .pokemon-stats {
   list-style-type: none !important; /* Remove bullet points from list items */
+  text-align: center !important;
+  margin: 0px;
+  padding: 0px;
 }

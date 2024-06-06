@@ -1,12 +1,9 @@
-/* Styles for the container */
 .pokemon-details-container {
-  justify-content: center !important;
-  align-items: center !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 20px;
   opacity: 0.8;
-  background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .loader {
@@ -53,4 +50,70 @@
 
 .base-stats-list-header {
   font-weight: bold;
+}
+
+/* Center the card horizontally */
+.card {
+  max-width: 400px; /* Adjust the maximum width as needed */
+}
+
+/* Specific types background colors */
+.card.grass {
+  background-color: #78c850 !important;
+}
+
+.card.fire {
+  background-color: #f08030 !important;
+}
+
+.card.water {
+  background-color: #6890f0 !important;
+}
+
+.card.bug {
+  background-color: #a8b820 !important;
+}
+
+.card.normal {
+  background-color: #a8a878 !important;
+}
+
+.card.poison {
+  background-color: #a040a0 !important;
+}
+
+.card.electric {
+  background-color: #f8d030 !important;
+}
+
+.card.ground {
+  background-color: #e0c068 !important;
+}
+
+.card.fairy {
+  background-color: #ee99ac !important;
+}
+
+.card.fighting {
+  background-color: #c03028 !important;
+}
+
+.card.psychic {
+  background-color: #f85888 !important;
+}
+
+.card.rock {
+  background-color: #b8a038 !important;
+}
+
+.card.ghost {
+  background-color: #705898 !important;
+}
+
+.card.ice {
+  background-color: #98d8d8 !important;
+}
+
+.card.dragon {
+  background-color: #7038f8 !important;
 }
