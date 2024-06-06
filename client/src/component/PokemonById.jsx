@@ -61,7 +61,7 @@ function PokemonById() {
                     Name:
                   </List.Header>
                   <List.Description>
-                    <ul>
+                    <ul className="foreignName">
                       {Object.entries(pokemon.name).map(([lang, name]) => (
                         <li key={lang}>
                           <strong>{lang}:</strong> {name}

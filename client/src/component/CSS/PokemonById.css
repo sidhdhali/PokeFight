@@ -57,6 +57,14 @@
   max-width: 400px; /* Adjust the maximum width as needed */
 }
 
+/* Remove default list styles */
+.base-stats-list,
+.pokemon-details-list,
+.foreignName {
+  list-style: none;
+  padding-left: 0;
+}
+
 /* Specific types background colors */
 .card.grass {
   background-color: #78c850 !important;
