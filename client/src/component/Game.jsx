@@ -10,6 +10,7 @@ import {
 } from "semantic-ui-react";
 import { saveGameResult } from "../utils/api"; // Make sure this path is correct
 import axios from "axios";
+import "./CSS/Game.css";
 
 const Game = () => {
   const [pokemons, setPokemons] = useState([]);
@@ -117,13 +118,13 @@ const Game = () => {
   }
 
   const renderPokemonCard = (pokemon) => (
-    <Card>
+    <Card className={`pokemon-card ${pokemon.type[0].toLowerCase()}`}>
       <Image src={pokemon.details.sprites.front_default} wrapped ui={false} />
       <Card.Content>
         <Card.Header>{pokemon.name.english}</Card.Header>
         <Card.Meta>Type: {pokemon.type.join(", ")}</Card.Meta>
         <Card.Description>
-          <ul>
+          <ul className="pokemon-stats">
             {Object.entries(pokemon.base).map(([statName, statValue]) => (
               <li key={statName}>
                 {statName}: {statValue}
@@ -136,7 +137,7 @@ const Game = () => {
   );
 
   return (
-    <Segment>
+    <Segment className="game-segment">
       <Grid columns={3} stackable textAlign="center">
         <Grid.Row verticalAlign="middle">
           <Grid.Column>

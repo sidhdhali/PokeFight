@@ -1,66 +1,56 @@
 /* Styles for the container */
 .pokemon-details-container {
-  justify-content: center;
+  justify-content: center !important;
+  align-items: center !important;
   padding: 20px;
-  opacity: 0.8; /* Adjust the opacity value as needed */
-  background-color: rgba(255, 255, 255, 0.8); /* To ensure content is readable */
-  border-radius: 10px; /* Optional: for rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: for a subtle shadow effect */
+  opacity: 0.8;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Styles for the loader */
 .loader {
   margin: auto;
 }
 
-/* Styles for the error message */
 .error-message {
   margin: auto;
   text-align: center;
 }
 
-/* Styles for the ID */
 .pokemon-id {
   font-weight: bold;
 }
 
-/* Styles for the list */
 .pokemon-details-list {
   margin-top: 10px;
 }
 
-/* Styles for the list items */
 .pokemon-details-list-item {
   margin-bottom: 5px;
 }
 
-/* Styles for the list item headers */
 .pokemon-details-list-header {
   font-weight: bold;
 }
 
-/* Styles for the types */
 .pokemon-types {
-  margin: 10px 0; /* Add space above and below */
+  margin: 10px 0;
   font-weight: bold;
 }
 
-/* Styles for the base stats */
 .pokemon-base-stats {
   margin-top: 10px;
 }
 
-/* Styles for the base stats list */
 .base-stats-list {
   margin-top: 5px;
 }
 
-/* Styles for the base stats list items */
 .base-stats-list-item {
   margin-bottom: 5px;
 }
 
-/* Styles for the base stats list item headers */
 .base-stats-list-header {
   font-weight: bold;
 }

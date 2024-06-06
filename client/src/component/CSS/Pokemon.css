@@ -1,18 +1,106 @@
-.pokemon-container {
-  opacity: 0.8;
-  padding: 10px;
-}
-
 .pokemon-card {
-  margin: 20px !important;
+  opacity: 0.8;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  padding: 10px;
+  margin-bottom: 20px !important;
+  background-color: white;
+  transition: background-color 0.3s;
+  width: 100%;
+  max-width: 200px;
 }
 
-.pagination {
-  margin-top: 20px;
+.pokemon-card img {
+  width: 100%;
+  height: auto;
+}
+
+.pokemon-card .card-header {
+  font-size: 1.2em;
+  margin-top: 10px;
+}
+
+.pokemon-card .card-meta {
+  font-size: 0.9em;
+  margin-top: 5px;
+}
+
+.pokemon-card .card-description {
+  font-size: 0.8em;
+  margin-top: 10px;
   text-align: center;
 }
-.controls {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
+
+.pokemon-card .card-description ul {
+  list-style-type: none; /* Remove bullet points from list items */
+  padding-left: 0; /* Remove default left padding */
+  margin-top: 0; /* Remove default top margin */
+}
+
+.pokemon-card .card-description li {
+  margin-bottom: 5px;
+}
+
+/* Specific types background colors */
+.pokemon-card.grass {
+  background-color: #78c850 !important;
+}
+
+.pokemon-card.fire {
+  background-color: #f08030 !important;
+}
+
+.pokemon-card.water {
+  background-color: #6890f0 !important;
+}
+
+.pokemon-card.bug {
+  background-color: #a8b820 !important;
+}
+
+.pokemon-card.normal {
+  background-color: #a8a878 !important;
+}
+
+.pokemon-card.poison {
+  background-color: #a040a0 !important;
+}
+
+.pokemon-card.electric {
+  background-color: #f8d030 !important;
+}
+
+.pokemon-card.ground {
+  background-color: #e0c068 !important;
+}
+
+.pokemon-card.fairy {
+  background-color: #ee99ac !important;
+}
+
+.pokemon-card.fighting {
+  background-color: #c03028 !important;
+}
+
+.pokemon-card.psychic {
+  background-color: #f85888 !important;
+}
+
+.pokemon-card.rock {
+  background-color: #b8a038 !important;
+}
+
+.pokemon-card.ghost {
+  background-color: #705898 !important;
+}
+
+.pokemon-card.ice {
+  background-color: #98d8d8 !important;
+}
+
+.pokemon-card.dragon {
+  background-color: #7038f8 !important;
 }

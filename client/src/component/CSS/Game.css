@@ -1,0 +1,10 @@
+/* Game.css */
+
+.game-segment {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+.pokemon-stats {
+  list-style-type: none !important; /* Remove bullet points from list items */
+}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Pagination } from "semantic-ui-react"; // Import Pagination component
+import { Pagination } from "semantic-ui-react"; 
 import "./CSS/GameResults.css"; // Import CSS file for styling
 
 function GameResults() {
