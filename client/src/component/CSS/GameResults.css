@@ -1,34 +1,51 @@
 .game-results-container {
-  text-align: center;
-  /* background-image: linear-gradient(to bottom right, rgb(250, 250, 113), rgb(252, 167, 111)); */
-  margin-bottom: 20px;
+	text-align: center;
+	/* background-image: linear-gradient(to bottom right, rgb(250, 250, 113), rgb(252, 167, 111)); */
+	margin-bottom: 20px;
 }
 
 .table-container {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
+	margin-top: 20px;
+	display: flex;
+	justify-content: center;
+
+	background: linear-gradient(
+		to bottom,
+		#da9c92 10%,
+		#e2aca4 50%,
+		rgba(241, 233, 238) 100%
+	);
+	/* opacity: 0.8; */
+	color: black;
+}
+
+.table-row {
+	border-radius: 20%;
 }
 
 .game-results-table {
-  width: 100%;
-  border-collapse: collapse;
+	width: 100%;
+	border-collapse: collapse;
 }
 
 .game-results-table th,
 .game-results-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: center;
+	padding: 8px;
+	text-align: center;
+}
+
+.game-results-table td {
+	border: 2px solid #f7e5d7;
 }
 
 .game-results-table th {
-  background-color: #f2f2f2;
-  /* background-image: linear-gradient(to bottom right, rgb(250, 113, 113), rgb(150, 128, 248)); */
+	background-color: #070101;
+	color: white;
+	/* background-image: linear-gradient(to bottom right, rgb(250, 113, 113), rgb(150, 128, 248)); */
 }
 
 .pagination {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
 }
